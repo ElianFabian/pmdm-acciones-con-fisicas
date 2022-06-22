@@ -49,7 +49,7 @@ public class SeguirJugador : MonoBehaviour
     #region Métodos
     void Seguir()
     {
-        Vector3 nuevaPosicion = Objetivo.position + Desfase;
+        var nuevaPosicion = Objetivo.position + Desfase;
 
         transform.position = Vector3.SmoothDamp
         (
@@ -58,7 +58,6 @@ public class SeguirJugador : MonoBehaviour
             ref VelocidadObjetivo,
             Suavidad
         );
-        if (MirarAObjetivo) transform.LookAt(Objetivo);
     }
 
     void MoverCamaraConRaton()
@@ -96,12 +95,17 @@ public class SeguirJugador : MonoBehaviour
     /// </summary>
     void AjustarAlturaRelativa()
     {
-        transform.position =Vector3.Lerp(transform.position, new Vector3
+        transform.position = Vector3.Lerp
         (
-            transform.position.x,
-            Objetivo.position.y + DesfaseYInicial,
-            transform.position.z
-        ), VelocidadAjustarAltura * Time.deltaTime);
+            transform.position,
+            new Vector3
+            (
+                transform.position.x,
+                Objetivo.position.y + DesfaseYInicial,
+                transform.position.z
+            ),
+            VelocidadAjustarAltura * Time.deltaTime
+        );
     }
     #endregion
 }
